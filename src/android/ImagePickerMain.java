@@ -15,7 +15,7 @@ import com.lzy.imagepicker.ui.*;
 import com.lzy.imagepicker.util.*;
 import com.lzy.imagepicker.view.*;
 import com.giants.imagepicker.imageloader.*;
-import com.nanchen.compresshelper.CompressHelper;
+// import com.nanchen.compresshelper.CompressHelper;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -51,7 +51,7 @@ public class ImagePickerMain extends CordovaPlugin {
 
         imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
 
-        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setShowCamera(false);  //显示拍照按钮
         imagePicker.setCrop(false);        //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存
         imagePicker.setSelectLimit(9);    //选中数量限制
@@ -164,16 +164,17 @@ public class ImagePickerMain extends CordovaPlugin {
 
                             File newFile = null;
 
-                            if(image_limit_width > 0 && image_limit_height > 0 && image_limit_quality > 0) {
-                                newFile = new CompressHelper.Builder(context)
-                                        .setMaxWidth(image_limit_width)  // 默认最大宽度
-                                        .setMaxHeight(image_limit_height) // 默认最大高度
-                                        .setQuality(image_limit_quality)    // 默认压缩质量
-                                        .setDestinationDirectoryPath(targetDirPath)
-                                        .build()
-                                        .compressToFile(oldFile);
-                            }
-                            else { // auto compress like wechat
+                            // if(image_limit_width > 0 && image_limit_height > 0 && image_limit_quality > 0) {
+                            //     newFile = new CompressHelper.Builder(context)
+                            //             .setMaxWidth(image_limit_width)  // 默认最大宽度
+                            //             .setMaxHeight(image_limit_height) // 默认最大高度
+                            //             .setQuality(image_limit_quality)    // 默认压缩质量
+                            //             .setDestinationDirectoryPath(targetDirPath)
+                            //             .build()
+                            //             .compressToFile(oldFile);
+                            // }
+                            // else { 
+                                // auto compress like wechat
                                 try {
                                     List<File> files = Luban.with(context)
                                             .load(oldFile)
@@ -189,7 +190,7 @@ public class ImagePickerMain extends CordovaPlugin {
                                 catch(Exception e) {
                                     e.printStackTrace();
                                 }
-                            }
+                            // }
 
                             if(newFile != null) {
                                 newPath = newFile.getAbsolutePath();

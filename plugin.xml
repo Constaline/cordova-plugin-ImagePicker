@@ -26,8 +26,6 @@
     <description>Cordova ImagePicker Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,ImagePicker</keywords>
-    <repo>https://github.com/giantss/cordova-plugin-ImagePicker.git</repo>
-    <issue>https://github.com/giantss/cordova-plugin-ImagePicker/issues</issue>
 
     <!--require cordova version -->
     <engines>
@@ -57,7 +55,7 @@
         <preference name="PHOTOLIBRARY_USAGE_DESCRIPTION" default="选图上传需要访问相册" />
         <config-file target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
             <string>$PHOTOLIBRARY_USAGE_DESCRIPTION</string>
-        </config-file>
+        </config-file> 
 
         <header-file src="src/ios/ImagePickerMain.h"/>
         <source-file src="src/ios/ImagePickerMain.m"/>
@@ -140,20 +138,22 @@
         </edit-config>-->
         <hook type="after_prepare" src="hooks/after_prepare/010-update-android-manifest.js" />
 
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <config-file target="AndroidManifest.xml" parent="application">
+            <!-- 适配Android10要在AndroidManifest.xml里加上android:requestLegacyExternalSAtorage="true"，不然照片显示不出来。 -->
+			<application android:requestLegacyExternalStorage="true" />
             <activity
                     android:name="com.lzy.imagepicker.ui.ImageGridActivity"
                     android:configChanges="orientation|screenSize"
-                    android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+                    android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:exported="false"/>
             <activity
                     android:name="com.lzy.imagepicker.ui.ImageCropActivity"
                     android:configChanges="orientation|screenSize"
                     android:hardwareAccelerated="false"
-                    android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+                    android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:exported="false"/>
             <activity
                     android:name="com.lzy.imagepicker.ui.ImagePreviewActivity"
                     android:configChanges="orientation|screenSize"
-                    android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+                    android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:exported="false"/>
 
             <provider
                     android:authorities="${applicationId}.imagepicker.provider"
@@ -167,7 +167,7 @@
         </config-file>
 
 
-        <config-file target="AndroidManifest.xml" parent="/manifest">
+        <config-file target="AndroidManifest.xml" parent=".">
 
             <!-- 在SDCard中创建与删除文件权限 -->
             <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
@@ -181,7 +181,7 @@
         </config-file>
 
         <!-- 第三方库 和 sourceCompatibility 1.7 用来支持 diamond 运算符  -->
-		<framework src="src/android/imagepicker.gradle" custom="true" type="gradleReference"/>
+	    <framework src="src/android/imagepicker.gradle" custom="true" type="gradleReference"/>
         <source-file src="src/android/module/adapter/ImageFolderAdapter.java" target-dir="src/com/lzy/imagepicker/adapter" />
         <source-file src="src/android/module/adapter/ImagePageAdapter.java" target-dir="src/com/lzy/imagepicker/adapter" />
         <source-file src="src/android/module/adapter/ImageRecyclerAdapter.java" target-dir="src/com/lzy/imagepicker/adapter" />

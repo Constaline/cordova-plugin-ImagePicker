@@ -1,8 +1,6 @@
 # cordova-plugin-ImagePicker
 
-非常感谢[南尘](https://github.com/nanchen2251)和 [banchichen](https://github.com/banchichen) 提供的源码支持 多点star✨开源不容易，谢谢。扣扣群：273613165
-
-一个支持多选，相册实现了拍照、预览、图片压缩等功能
+> 一个支持多选，相册实现了拍照、预览、图片压缩等功能
 
 ## 功能
 
@@ -20,18 +18,11 @@
 
 ## 安装
 
- - `cordova plugin add https://github.com/giantss/cordova-plugin-ImagePicker.git`
+ - `cordova plugin add https://github.com/Constaline/cordova-plugin-ImagePicker.git`
 
 
 注意：Android 项目先不要直接 build ，见 [android注意事项](#android注意事项)。
 
-## Android 视频演示
-
-- [点击查看视频(优酷)](http://v.youku.com/v_show/id_XMjg0NDg0NDIyMA==.html)
-
-## iOS 视频演示
-
-- [点击查看视频(优酷)](http://v.youku.com/v_show/id_XMjg0NDg0NTU4OA==.html)
 
 ## 效果图
 
@@ -40,7 +31,6 @@
 | <img src="./screenshots/android.png" width="270px" height="480"> | <img src="./screenshots/ios.jpg" width="270px" height="480"> |
 
 ## 使用方式
-[一个粗糙的 cordova demo](https://github.com/giantss/ImagePickerDemo)
 
 ```javascript
 // 选图
