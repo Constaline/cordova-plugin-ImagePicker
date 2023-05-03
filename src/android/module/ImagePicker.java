@@ -1,5 +1,6 @@
 package com.lzy.imagepicker;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -262,6 +263,7 @@ public class ImagePicker {
     /**
      * 拍照的方法
      */
+    @SuppressLint("QueryPermissionsNeeded")
     public void takePicture(Activity activity, int requestCode) {
         PackageManager packageManager = activity.getPackageManager();
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
@@ -272,9 +274,11 @@ public class ImagePicker {
             InnerToaster.obj(activity).show(resource.getIdentifier("ip_str_no_camera", "string", pkgName));
             return;
         }
+        // 华为手机targetsdk31 resolveActivity返回 null, 这里加多个相机存在判断
+        boolean hasCamera = activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null || hasCamera) {
             if (Utils.existSDCard())
                 takeImageFile = new File(Environment.getExternalStorageDirectory(), "/DCIM/camera/");
             else takeImageFile = Environment.getDataDirectory();
@@ -306,8 +310,8 @@ public class ImagePicker {
                 Log.e("nanchen", ProviderUtil.getFileProviderName(activity));
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             }
+            activity.startActivityForResult(takePictureIntent, requestCode);
         }
-        activity.startActivityForResult(takePictureIntent, requestCode);
     }
 
     /**
